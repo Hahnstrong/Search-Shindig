@@ -10,19 +10,24 @@ import UIKit
 
 class ImageDisplayViewController: UIViewController {
 
+    // MARK: - Properties
+    
+    var flickrImage: FlickrImage?
+    
+    // MARK: - IBOutlets
+    
+    @IBOutlet weak var FlickrTitleLabel: UILabel!
+    @IBOutlet weak var FlickrUIImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        guard let flickrImage = flickrImage else { return }
+        FlickrTitleLabel.text = flickrImage.title
+        FlickrImageController.searchForImage(flickrImage: flickrImage) { (image) in
+            DispatchQueue.main.async {
+                self.FlickrUIImageView.image = image
+            }
+        }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

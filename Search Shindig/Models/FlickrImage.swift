@@ -11,16 +11,28 @@ import Foundation
 class FlickrImage {
     
     let title: String
-    let photo: String
+    let farm: Int
+    let id: String
+    let server: String
+    let secret: String
     
     private let titleKey = "title"
-    private let photoKey = "photo"
+    private let farmKey = "farm"
+    private let idKey = "id"
+    private let serverKey = "server"
+    private let secretKey = "secret"
     
     init?(dictionary: [String: Any]) {
         guard let title = dictionary[titleKey] as? String,
-            let photo = dictionary[photoKey] as? String else { return nil }
+            let farm = dictionary[farmKey] as? Int,
+            let id = dictionary[idKey] as? String,
+            let server = dictionary[serverKey] as? String,
+            let secret = dictionary[secretKey] as? String else { return nil }
         
         self.title = title
-        self.photo = photo
+        self.farm = farm
+        self.id = id
+        self.server = server
+        self.secret = secret
     }
 }

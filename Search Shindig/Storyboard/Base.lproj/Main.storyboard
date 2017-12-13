@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0Zi-q1-YWk">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Search List View Controller-->
         <scene sceneID="DTy-rR-fXW">
             <objects>
-                <viewController id="qT4-sg-Y7L" sceneMemberID="viewController">
+                <viewController id="qT4-sg-Y7L" customClass="SearchListViewController" customModule="Search_Shindig" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="auL-EL-pv6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -42,7 +42,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Na-Z1-dLR">
-                                                    <rect key="frame" x="100" y="0.0" width="275" height="99.5"/>
+                                                    <rect key="frame" x="115" y="0.0" width="260" height="99.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -55,13 +55,13 @@
                                                 <constraint firstAttribute="trailing" secondItem="1Na-Z1-dLR" secondAttribute="trailing" id="MwP-je-dPJ"/>
                                                 <constraint firstItem="Ei0-kM-4JB" firstAttribute="top" secondItem="U5J-ez-ogJ" secondAttribute="top" id="UX8-j8-ium"/>
                                                 <constraint firstAttribute="bottom" secondItem="Ei0-kM-4JB" secondAttribute="bottom" id="Wj3-tM-XUt"/>
-                                                <constraint firstItem="1Na-Z1-dLR" firstAttribute="leading" secondItem="Ei0-kM-4JB" secondAttribute="trailing" id="f85-K1-6mJ"/>
+                                                <constraint firstItem="1Na-Z1-dLR" firstAttribute="leading" secondItem="Ei0-kM-4JB" secondAttribute="trailing" constant="15" id="f85-K1-6mJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="FlickrTitleLabel" destination="1Na-Z1-dLR" id="hn4-o1-i5p"/>
                                             <outlet property="FlickrUIImageView" destination="Ei0-kM-4JB" id="LD2-i3-HKN"/>
-                                            <segue destination="NxB-dJ-fGE" kind="show" id="OzZ-ni-DGe"/>
+                                            <segue destination="NxB-dJ-fGE" kind="show" identifier="toImageDisplay" id="OzZ-ni-DGe"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -71,21 +71,53 @@
                         <viewLayoutGuide key="safeArea" id="11b-MO-eTo"/>
                     </view>
                     <navigationItem key="navigationItem" id="n5N-ss-SVY"/>
+                    <connections>
+                        <outlet property="flickrListTableView" destination="PhF-Ho-FVU" id="2vX-Up-DbP"/>
+                        <outlet property="flickrSearchBar" destination="lvu-2Y-oo0" id="p6U-fT-jv7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QRJ-cj-ygd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="319.19999999999999" y="268.51574212893553"/>
         </scene>
-        <!--View Controller-->
+        <!--Image Display View Controller-->
         <scene sceneID="Y3x-tH-4a5">
             <objects>
-                <viewController id="NxB-dJ-fGE" sceneMemberID="viewController">
+                <viewController id="NxB-dJ-fGE" customClass="ImageDisplayViewController" customModule="Search_Shindig" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PLX-tm-JC9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huo-bN-CfN">
+                                <rect key="frame" x="8" y="72" width="359" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Orp-b3-wbC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KzX-E7-lkF">
+                                <rect key="frame" x="8" y="130" width="359" height="529"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="huo-bN-CfN" firstAttribute="top" secondItem="cGz-xB-B5u" secondAttribute="top" constant="8" id="8vP-oq-BlC"/>
+                            <constraint firstItem="cGz-xB-B5u" firstAttribute="trailing" secondItem="KzX-E7-lkF" secondAttribute="trailing" constant="8" id="9GS-ye-7DP"/>
+                            <constraint firstItem="cGz-xB-B5u" firstAttribute="bottom" secondItem="KzX-E7-lkF" secondAttribute="bottom" constant="8" id="Erf-jv-rhI"/>
+                            <constraint firstItem="cGz-xB-B5u" firstAttribute="trailing" secondItem="huo-bN-CfN" secondAttribute="trailing" constant="8" id="MVD-od-FJc"/>
+                            <constraint firstItem="KzX-E7-lkF" firstAttribute="top" secondItem="huo-bN-CfN" secondAttribute="bottom" constant="8" id="N7U-2J-jXr"/>
+                            <constraint firstItem="KzX-E7-lkF" firstAttribute="top" secondItem="huo-bN-CfN" secondAttribute="bottom" constant="8" id="W8Q-nK-o2W"/>
+                            <constraint firstItem="huo-bN-CfN" firstAttribute="leading" secondItem="cGz-xB-B5u" secondAttribute="leading" constant="8" id="eiJ-d0-zZu"/>
+                            <constraint firstItem="KzX-E7-lkF" firstAttribute="leading" secondItem="cGz-xB-B5u" secondAttribute="leading" constant="8" id="whO-Nf-YS2"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="cGz-xB-B5u"/>
                     </view>
+                    <connections>
+                        <outlet property="FlickrTitleLabel" destination="huo-bN-CfN" id="YSa-r1-AYl"/>
+                        <outlet property="FlickrUIImageView" destination="KzX-E7-lkF" id="Pac-9B-exh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8bP-kc-MNJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

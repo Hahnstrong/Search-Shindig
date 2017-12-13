@@ -15,4 +15,12 @@ class FlickrImageTableViewCell: UITableViewCell {
     @IBOutlet weak var FlickrTitleLabel: UILabel!
     @IBOutlet weak var FlickrUIImageView: UIImageView!
     
+    func updateView(flickrImage: FlickrImage) {
+        FlickrImageController.searchForImage(flickrImage: flickrImage) { (image) in
+            DispatchQueue.main.async {
+                self.FlickrTitleLabel.text = flickrImage.title
+                self.FlickrUIImageView.image = image
+            }
+        }
+    }
 }
